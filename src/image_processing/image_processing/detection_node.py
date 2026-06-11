@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 
 """
-ROS2 IMAGE SUBSCIRBER NODE
+ROS2 OBJECT DETECTION NODE
 
-This node subscribes to the '/image' topic and display image.
+This node subscribes to the '/image'
+Use YOLO to detect objects.
 """
 
 import rclpy
@@ -14,9 +15,9 @@ import cv2
 
 from ultralytics import YOLO
 
-class YoloDetectionNode(Node):
+class DetectionNode(Node):
     def __init__(self):
-        super().__init__('yolo_detection')
+        super().__init__('detection')
 
         # Subscriber to read raw image
         self.subscription_ = self.create_subscription(
@@ -25,7 +26,8 @@ class YoloDetectionNode(Node):
             self.callback_image,
             10
         )
-
+        
+        # Bridge to cover OpenCV images and ROS msgs
         self.bridge = CvBridge()
 
         # Load YOLO model with paramteres
@@ -51,7 +53,7 @@ class YoloDetectionNode(Node):
 
 def main(args=None):
 	rclpy.init(args=args)
-	node = YoloDetectionNode()
+	node = DetectionNode()
 	
 	rclpy.spin(node)
 	rclpy.shutdown()

@@ -25,6 +25,7 @@ class ImageSubscriber(Node):
             10
         )
 
+        # Bridge to cover OpenCV images and ROS msgs
         self.bridge = CvBridge()
 
 
