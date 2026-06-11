@@ -25,6 +25,7 @@ setup(
     entry_points={
         'console_scripts': [
             'image_node = image_processing.image_node:main',
+            'yolo_detection = image_processing.yolo_detection:main',
         ],
     },
 )
